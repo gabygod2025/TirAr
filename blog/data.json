@@ -1,0 +1,50 @@
+[
+  {
+    "id": 6,
+    "title": "Curso de tiro para principiantes marzo de 2026",
+    "date": "2026-01-14",
+    "summary": "El próximo sábado 07 de marzo de 2026, se llevará a cabo un nuevo curso de idoneidad que está diseñado para cumplir con todos los requisitos que se piden para obtener el CLU.",
+    "image": "../images/flyer01.jpeg  ",
+    "link": "curso-tiro-2026.html"
+  },
+  {
+    "id": 5,
+    "title": "Te mostramos la Carabina 22 Rossi",
+    "date": "2026-01-14",
+    "summary": "Te mostramos la Carabina Rossi, modelo 7022, semiautomática de calibre .22 con mira teléscopica.",
+    "image": "../images/blogfoto04.jpeg",
+    "link": "carabina22.html"
+  },
+  {
+    "id": 4,
+    "title": "¿Qué es el Tiro Defensivo?",
+    "date": "2026-01-13",
+    "summary": "Diferencias entre tiro deportivo y tiro defensivo: mentalidad y técnica.",
+    "image": "../images/blogfoto02.jpeg",
+    "link": "tiro-defensivo.html"
+  },
+  {
+    "id": 3,
+    "title": "Mantenimiento Básico de tu Glock",
+    "date": "2026-01-13",
+    "summary": "Guía rápida para limpiar y lubricar tu pistola Glock después de una práctica.",
+    "image": "../images/blogfoto03.jpeg",
+    "link": "mantenimiento-glock.html"
+  },
+  {
+    "id": 2,
+    "title": "Te mostramos la Glock 17",
+    "date": "2026-01-13",
+    "summary": "Te mostramos la pistola Glock 17, semiautomática de calibre 9mm, diseñada en Austria por Gaston Glock.",
+    "image": "../images/blogfoto01.jpeg",
+    "link": "glock17.html"
+  },
+  {
+    "id": 1,
+    "title": "Bienvenidos a nuestro Blog",
+    "date": "2026-01-13",
+    "summary": "Inauguramos nuestro espacio de noticias y artículos sobre tiro táctico y seguridad.",
+    "image": "../images/logo02.png",
+    "link": "bienvenida.html"
+  }
+]

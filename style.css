@@ -173,13 +173,77 @@ h4 {
 /* Hero Section */
 .hero {
   height: 100vh;
-  background-image: url("academia-tiro/images/fondo.jpeg");
-  background-size: 100% 100%;
+  background-image: url("images/fondo.jpeg");
+  background-size: cover;
   background-position: center;
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center; /* Center horizontally */
   text-align: center;
+  margin-top: 80px; /* Offset for fixed navbar */
+}
+
+/* Carousel Styles */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  flex: 0 0 100%;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.prev-btn,
+.next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
 }
 
 .course-hero {
@@ -515,7 +579,8 @@ footer {
 }
 
 .carousel-slide {
-  flex: 0 0 300px;
+  flex: 0 0 200px;
+  min-width: 0;
   height: 200px;
   scroll-snap-align: center;
   border-radius: 8px;
@@ -754,6 +819,10 @@ footer {
     flex: 0 0 85%; /* Show part of next slide */
     height: 180px;
   }
+
+  .blog-img-container {
+    height: 150px;
+  }
 }
 
 /* Director Profile Styles */
@@ -849,4 +918,218 @@ footer {
   font-size: 1.5rem;
   display: block; /* Make number stand out on new line or block */
   margin-top: 5px;
+}
+
+/* Blog Styles */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.blog-card {
+  background-color: var(--card-bg);
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.blog-img-container {
+  height: 200px;
+  overflow: hidden;
+}
+
+.blog-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.blog-card:hover .blog-img-container img {
+  transform: scale(1.1);
+}
+
+.blog-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-date {
+  font-size: 0.8rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.blog-content h3 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.blog-content p {
+  color: var(--text-gray);
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  flex: 1;
+}
+
+.btn-text {
+  color: var(--primary-color);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  align-self: flex-start;
+}
+
+.btn-text:hover {
+  text-decoration: underline;
+}
+
+/* Blog Post Layout */
+.blog-post-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.blog-sidebar {
+  position: sticky;
+  top: 130px; /* Adjust based on navbar height */
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.blog-sidebar h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #fff;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+.video-blog {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.recent-posts-list {
+  list-style: none;
+  padding: 0;
+}
+
+.recent-posts-list li {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+}
+
+.recent-posts-list li:last-child {
+  border-bottom: none;
+}
+
+.recent-posts-list a {
+  font-weight: bold;
+  color: #fff;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.recent-posts-list a:hover {
+  color: var(--primary-color);
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.pagination-btn {
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+
+.pagination-btn:disabled {
+  border-color: #555;
+  color: #555;
+  cursor: not-allowed;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .blog-post-container {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-sidebar {
+    position: static;
+    margin-top: 40px;
+  }
+}
+
+.article-content {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.blog-sidebar {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.all-posts-section {
+  grid-column: 1;
+  grid-row: 2;
+  background-color: var(--card-bg);
+  padding: 40px 20px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.all-posts-header {
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+@media (max-width: 900px) {
+  .article-content,
+  .blog-sidebar,
+  .all-posts-section {
+    grid-column: auto;
+    grid-row: auto;
+  }
 }

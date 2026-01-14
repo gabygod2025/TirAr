@@ -1,0 +1,356 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prueba de Blog | TirAr</title>
+<meta name="description" content="Resumen para la tarjeta de blog" />
+<link rel="stylesheet" href="../style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&amp;family=Roboto:wght@300;400;700&amp;display=swap"
+  rel="stylesheet"
+/>
+<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+<style>
+  .article-content {
+    padding: 40px 20px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid #333;
+  }
+  .article-header {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .article-date {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .article-img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    margin-bottom: 30px;
+  }
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+  }
+  .article-body p {
+    margin-bottom: 20px;
+    color: #ccc;
+    line-height: 1.8;
+  }
+  .article-body h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #fff;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 30px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Blog Carousel Styles */
+  .blog-carousel-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    width: 100%;
+  }
+  .blog-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+  }
+  .blog-carousel-slide {
+    min-width: 100%;
+    flex: 0 0 100%;
+  }
+  .blog-carousel-slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+  .blog-prev-btn,
+  .blog-next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+  }
+  .blog-prev-btn:hover,
+  .blog-next-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  .blog-prev-btn {
+    left: 10px;
+  }
+  .blog-next-btn {
+    right: 10px;
+  }
+</style>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="container nav-container">
+    <div class="logo-container">
+      <img
+        src="../images/logo02.png"
+        alt="Logo"
+        class="logo-img"
+        width="125"
+        height="75"
+      />
+      <h4 class="logo">Academia de Tiro Táctico</h4>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="../academia.html">Academia</a></li>
+      <li><a href="index.html" class="active">Blog</a></li>
+      <li><a href="../index.html#cursos">Cursos</a></li>
+      <li><a href="#contacto" class="btn-nav">Contacto</a></li>
+    </ul>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section (Small) -->
+<header class="hero" style="height: 40vh; min-height: 300px">
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <h1 class="hero-title">BLOG</h1>
+  </div>
+</header>
+
+<!-- Article Section -->
+<section class="section">
+  <div class="container blog-post-container">
+    <div class="article-content">
+      <div class="article-header">
+        <span class="article-date">21 de diciembre de 2025</span>
+        <h1>Prueba de Blog</h1>
+      </div>
+
+      <div class="blog-carousel-container">
+        <div class="blog-carousel-track">
+          <div class="blog-carousel-slide">
+            <a href="../images/glock04a.jpg" target="_blank">
+              <img src="../images/glock04a.jpg" alt="Prueba de Blog" />
+            </a>
+          </div>
+          <div class="blog-carousel-slide">
+            <a href="../images/glock05a.jpg" target="_blank">
+              <img src="../images/glock05a.jpg" alt="Prueba de Blog" />
+            </a>
+          </div>
+          <div class="blog-carousel-slide">
+            <a href="../images/glock02a.jpg" target="_blank">
+              <img src="../images/glock02a.jpg" alt="Prueba de Blog" />
+            </a>
+          </div>
+          <div class="blog-carousel-slide">
+            <a href="../images/glock03a.jpg" target="_blank">
+              <img src="../images/glock03a.jpg" alt="Prueba de Blog" />
+            </a>
+          </div>
+          <div class="blog-carousel-slide">
+            <a href="../images/glock01a.jpg" target="_blank">
+              <img src="../images/glock01a.jpg" alt="Prueba de Blog" />
+            </a>
+          </div>
+        </div>
+        <button class="blog-prev-btn">&#10094;</button>
+        <button class="blog-next-btn">&#10095;</button>
+      </div>
+
+      <div class="article-body"><h3>Prueba de la Galería</h3></div>
+
+      <a href="index.html" class="back-link">← Volver al Blog</a>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="blog-sidebar">
+      <h3>Últimas Publicaciones</h3>
+      <div id="recent-posts">
+        <!-- Posts loaded via JS -->
+        <p>Cargando...</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contacto">
+  <div class="container footer-content">
+    <div class="footer-col">
+      <h3>Tir<span class="highlight">Ar</span></h3>
+      <p>Academia líder en formación de tiro táctico y defensivo.</p>
+      <p>Buenos Aires, Argentina</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <p>
+        <b>Email:</b>
+        <a href="mailto:info@tirar.com.ar">info@tirar.com.ar</a>
+      </p>
+      <p><b>WhatsApp:</b> +54 9 11-5004-0881</p>
+      <p><b>Instructor:</b> Guillermo Benítez</p>
+    </div>
+    <div class="footer-col">
+      <h4>Síguenos</h4>
+      <div class="social-links">
+        <a href="https://www.instagram.com/academiatirar" target="_blank"
+          >Instagram</a
+        >
+        <a href="https://www.facebook.com/academiatirar" target="_blank"
+          >Facebook</a
+        >
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-col visit-counter">
+      <h4>Cantidad de visitas:</h4>
+      <span id="visit-count">0</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 TirAr Academy. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script src="../counter.js"></script>
+<script src="script.js"></script>
+<script>
+  // Mobile Menu
+  const hamburger = document.querySelector(".hamburger");
+  const navLinks = document.querySelector(".nav-links");
+  hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  // Load Recent Posts
+  document.addEventListener("DOMContentLoaded", () => {
+    loadBlogPosts("recent-posts", false, 3, true);
+  });
+
+  // Carousel Logic
+  document.addEventListener("DOMContentLoaded", () => {
+    const track = document.querySelector(".blog-carousel-track");
+    const nextBtn = document.querySelector(".blog-next-btn");
+    const prevBtn = document.querySelector(".blog-prev-btn");
+    const slides = document.querySelectorAll(".blog-carousel-slide");
+    let currentIndex = 0;
+
+    if (slides.length > 0) {
+      const updateCarousel = () => {
+        const width = slides[0].getBoundingClientRect().width;
+        track.style.transform = `translateX(-${currentIndex * width}px)`;
+      };
+
+      nextBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+      });
+
+      prevBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateCarousel();
+      });
+
+      window.addEventListener("resize", updateCarousel);
+      // Initial update to ensure correct positioning
+      updateCarousel();
+    }
+  });
+</script>
+<!-- Code injected by live-server -->
+<script>
+  // <![CDATA[  <-- For SVG support
+  if ("WebSocket" in window) {
+    (function () {
+      function refreshCSS() {
+        var sheets = [].slice.call(document.getElementsByTagName("link"));
+        var head = document.getElementsByTagName("head")[0];
+        for (var i = 0; i < sheets.length; ++i) {
+          var elem = sheets[i];
+          var parent = elem.parentElement || head;
+          parent.removeChild(elem);
+          var rel = elem.rel;
+          if (
+            (elem.href && typeof rel != "string") ||
+            rel.length == 0 ||
+            rel.toLowerCase() == "stylesheet"
+          ) {
+            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, "");
+            elem.href =
+              url +
+              (url.indexOf("?") >= 0 ? "&" : "?") +
+              "_cacheOverride=" +
+              new Date().valueOf();
+          }
+          parent.appendChild(elem);
+        }
+      }
+      var protocol = window.location.protocol === "http:" ? "ws://" : "wss://";
+      var address =
+        protocol + window.location.host + window.location.pathname + "/ws";
+      var socket = new WebSocket(address);
+      socket.onmessage = function (msg) {
+        if (msg.data == "reload") window.location.reload();
+        else if (msg.data == "refreshcss") refreshCSS();
+      };
+      if (
+        sessionStorage &&
+        !sessionStorage.getItem("IsThisFirstTime_Log_From_LiveServer")
+      ) {
+        console.log("Live reload enabled.");
+        sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true);
+      }
+    })();
+  } else {
+    console.error(
+      "Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading."
+    );
+  }
+  // ]]>
+</script>

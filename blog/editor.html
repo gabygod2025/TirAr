@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor de Blog | TirAr</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      body {
+        padding: 20px;
+        background-color: #1a1a1a;
+        color: #fff;
+        font-family: sans-serif;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px;
+        background-color: #333;
+        border: 1px solid #555;
+        color: #fff;
+        border-radius: 4px;
+      }
+      textarea {
+        height: 150px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 4px;
+      }
+      button:hover {
+        background-color: #e03e00;
+      }
+      .output-area {
+        margin-top: 40px;
+        background-color: #000;
+        padding: 20px;
+        border: 1px solid #333;
+      }
+      pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        color: #ccc;
+      }
+      .copy-btn {
+        background-color: #444;
+        margin-top: 10px;
+        font-size: 0.8rem;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generador de Entradas de Blog</h1>
+
+      <div class="form-group">
+        <label for="title">Título</label>
+        <input
+          type="text"
+          id="title"
+          placeholder="Ej: Nueva Técnica de Disparo"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="date">Fecha (YYYY-MM-DD)</label>
+        <input type="date" id="date" />
+      </div>
+
+      <div class="form-group">
+        <label for="summary">Resumen (para la tarjeta)</label>
+        <input type="text" id="summary" placeholder="Breve descripción..." />
+      </div>
+
+      <div class="form-group">
+        <label for="mediaType">Tipo de Multimedia Principal</label>
+        <select id="mediaType" onchange="toggleMediaInputs()">
+          <option value="image">Imagen Única</option>
+          <option value="carousel">Carrusel de Fotos</option>
+          <option value="video">Video (YouTube/Vimeo)</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="imageInputGroup">
+        <label for="image">Nombre de Imagen (en carpeta images/)</label>
+        <input type="text" id="image" value="../images/logo02.png" />
+      </div>
+
+      <div class="form-group hidden" id="carouselInputGroup">
+        <label for="carouselImages"
+          >Imágenes del Carrusel (separadas por coma)</label
+        >
+        <input
+          type="text"
+          id="carouselImages"
+          placeholder="../images/foto1.jpg, ../images/foto2.jpg"
+        />
+        <small style="color: #aaa"
+          >Usa rutas relativas como ../images/nombre.jpg</small
+        >
+      </div>
+
+      <div class="form-group hidden" id="videoInputGroup">
+        <label for="videoUrl">URL del Video (Embed/Iframe)</label>
+        <input
+          type="text"
+          id="videoUrl"
+          placeholder="https://www.youtube.com/embed/..."
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="filename">Nombre del Archivo HTML (sin .html)</label>
+        <input type="text" id="filename" placeholder="ej: nueva-tecnica" />
+      </div>
+
+      <div class="form-group">
+        <label for="content">Contenido (Cuerpo del artículo)</label>
+        <div
+          class="toolbar"
+          style="
+            margin-bottom: 5px;
+            background: #333;
+            padding: 5px;
+            border-radius: 4px;
+          "
+        >
+          <button
+            type="button"
+            onclick="insertTag('<h3>', '</h3>')"
+            style="padding: 2px 8px; margin-right: 5px; font-weight: bold"
+          >
+            H3 (Título)
+          </button>
+          <button
+            type="button"
+            onclick="insertTag('<b>', '</b>')"
+            style="padding: 2px 8px; margin-right: 5px; font-weight: bold"
+          >
+            B (Negrita)
+          </button>
+          <button
+            type="button"
+            onclick="insertTag('<p>', '</p>')"
+            style="padding: 2px 8px; margin-right: 5px"
+          >
+            P (Párrafo)
+          </button>
+          <button
+            type="button"
+            onclick="insertTag('<br>')"
+            style="padding: 2px 8px; margin-right: 5px"
+          >
+            BR (Salto)
+          </button>
+          <button
+            type="button"
+            onclick="insertTag('<p style=\x22text-align: justify;\x22>', '</p>')"
+            style="padding: 2px 8px; margin-right: 5px"
+          >
+            Justificar
+          </button>
+          <button
+            type="button"
+            onclick="insertTag('<ul>\n  <li>', '</li>\n</ul>')"
+            style="padding: 2px 8px"
+          >
+            Lista
+          </button>
+        </div>
+        <textarea
+          id="content"
+          placeholder="Escribe aquí... Usa los botones para formatear."
+        ></textarea>
+      </div>
+
+      <button onclick="generate()">Generar Código</button>
+
+      <div class="output-area">
+        <h3>1. Copiar en blog/data.json (al principio de la lista)</h3>
+        <textarea id="json-output" readonly style="height: 100px"></textarea>
+        <button class="copy-btn" onclick="copyToClipboard('json-output')">
+          Copiar JSON
+        </button>
+
+        <h3 style="margin-top: 30px">
+          2. Crear archivo: <span id="filename-display">nombre.html</span>
+        </h3>
+        <textarea id="html-output" readonly style="height: 300px"></textarea>
+        <button class="copy-btn" onclick="copyToClipboard('html-output')">
+          Copiar HTML
+        </button>
+      </div>
+    </div>
+
+    <!-- Template for HTML generation to avoid script tag escaping issues -->
+    <template id="blog-template">
+      <!DOCTYPE html>
+      <html lang="es">
+        <head>
+          <meta charset="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <title>{{TITLE}} | TirAr</title>
+          <meta name="description" content="{{SUMMARY}}" />
+          <link rel="stylesheet" href="../style.css" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+            rel="stylesheet"
+          />
+          <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+          <style>
+            .article-content {
+              padding: 40px 20px;
+              background-color: var(--card-bg);
+              border-radius: 8px;
+              border: 1px solid #333;
+            }
+            .article-header {
+              margin-bottom: 30px;
+              text-align: center;
+            }
+            .article-date {
+              color: var(--primary-color);
+              font-size: 0.9rem;
+              display: block;
+              margin-bottom: 10px;
+            }
+            .article-img {
+              width: 100%;
+              height: auto;
+              max-height: 400px;
+              object-fit: cover;
+              border-radius: 8px;
+              margin-bottom: 30px;
+            }
+            .video-container {
+              position: relative;
+              padding-bottom: 56.25%; /* 16:9 */
+              height: 0;
+              margin-bottom: 30px;
+            }
+            .video-container iframe {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              border-radius: 8px;
+            }
+            .article-body p {
+              margin-bottom: 20px;
+              color: #ccc;
+              line-height: 1.8;
+            }
+            .article-body h3 {
+              margin-top: 30px;
+              margin-bottom: 15px;
+              color: #fff;
+            }
+            .back-link {
+              display: inline-block;
+              margin-top: 30px;
+              color: var(--primary-color);
+              text-decoration: none;
+              font-weight: bold;
+            }
+            .back-link:hover {
+              text-decoration: underline;
+            }
+
+            /* Blog Carousel Styles */
+            .blog-carousel-container {
+              position: relative;
+              overflow: hidden;
+              margin-bottom: 30px;
+              border-radius: 8px;
+              width: 100%;
+            }
+            .blog-carousel-track {
+              display: flex;
+              transition: transform 0.5s ease-in-out;
+              width: 100%;
+            }
+            .blog-carousel-slide {
+              min-width: 100%;
+              flex: 0 0 100%;
+            }
+            .blog-carousel-slide img {
+              width: 100%;
+              height: 400px;
+              object-fit: cover;
+              border-radius: 8px;
+              display: block;
+            }
+            .blog-prev-btn,
+            .blog-next-btn {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              background: rgba(0, 0, 0, 0.5);
+              color: #fff;
+              border: none;
+              padding: 15px;
+              cursor: pointer;
+              z-index: 10;
+              font-size: 1.2rem;
+              border-radius: 50%;
+              width: 50px;
+              height: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transition: background 0.3s;
+            }
+            .blog-prev-btn:hover,
+            .blog-next-btn:hover {
+              background: rgba(0, 0, 0, 0.8);
+            }
+            .blog-prev-btn {
+              left: 10px;
+            }
+            .blog-next-btn {
+              right: 10px;
+            }
+          </style>
+        </head>
+        <body>
+          <!-- Navigation -->
+          <nav class="navbar">
+            <div class="container nav-container">
+              <div class="logo-container">
+                <img
+                  src="../images/logo02.png"
+                  alt="Logo"
+                  class="logo-img"
+                  width="125"
+                  height="75"
+                />
+                <h4 class="logo">Academia de Tiro Táctico</h4>
+              </div>
+              <ul class="nav-links">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="../academia.html">Academia</a></li>
+                <li><a href="index.html" class="active">Blog</a></li>
+                <li><a href="../index.html#cursos">Cursos</a></li>
+                <li><a href="#contacto" class="btn-nav">Contacto</a></li>
+              </ul>
+              <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </nav>
+
+          <!-- Hero Section (Small) -->
+          <header class="hero" style="height: 40vh; min-height: 300px">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+              <h1 class="hero-title">BLOG</h1>
+            </div>
+          </header>
+
+          <!-- Article Section -->
+          <section class="section">
+            <div class="container blog-post-container">
+              <div class="article-content">
+                <div class="article-header">
+                  <span class="article-date">{{DATE_FORMATTED}}</span>
+                  <h1>{{TITLE}}</h1>
+                </div>
+
+                {{MEDIA_CONTENT}}
+
+                <div class="article-body">{{CONTENT}}</div>
+
+                <a href="index.html" class="back-link">&larr; Volver al Blog</a>
+              </div>
+
+              <!-- Sidebar -->
+              <aside class="blog-sidebar">
+                <h3>Últimas Publicaciones</h3>
+                <div id="recent-posts">
+                  <!-- Posts loaded via JS -->
+                  <p>Cargando...</p>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <!-- Footer -->
+          <footer id="contacto">
+            <div class="container footer-content">
+              <div class="footer-col">
+                <h3>Tir<span class="highlight">Ar</span></h3>
+                <p>Academia líder en formación de tiro táctico y defensivo.</p>
+                <p>Buenos Aires, Argentina</p>
+              </div>
+              <div class="footer-col">
+                <h4>Contacto</h4>
+                <p>
+                  <b>Email:</b>
+                  <a href="mailto:info@tirar.com.ar">info@tirar.com.ar</a>
+                </p>
+                <p><b>WhatsApp:</b> +54 9 11-5004-0881</p>
+                <p><b>Instructor:</b> Guillermo Benítez</p>
+              </div>
+              <div class="footer-col">
+                <h4>Síguenos</h4>
+                <div class="social-links">
+                  <a
+                    href="https://www.instagram.com/academiatirar"
+                    target="_blank"
+                    >Instagram</a
+                  >
+                  <a
+                    href="https://www.facebook.com/academiatirar"
+                    target="_blank"
+                    >Facebook</a
+                  >
+                  <a href="#">YouTube</a>
+                </div>
+              </div>
+              <div class="footer-col visit-counter">
+                <h4>Cantidad de visitas:</h4>
+                <span id="visit-count">0</span>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <p>&copy; 2025 TirAr Academy. Todos los derechos reservados.</p>
+            </div>
+          </footer>
+
+          <script src="../counter.js"></script>
+          <script src="script.js"></script>
+          <script>
+            // Mobile Menu
+            const hamburger = document.querySelector(".hamburger");
+            const navLinks = document.querySelector(".nav-links");
+            hamburger.addEventListener("click", () => {
+              navLinks.classList.toggle("active");
+            });
+
+            // Load Recent Posts
+            document.addEventListener("DOMContentLoaded", () => {
+              loadBlogPosts("recent-posts", false, 3, true);
+            });
+
+            /*CAROUSEL_SCRIPT_PLACEHOLDER*/
+          </script>
+        </body>
+      </html>
+    </template>
+
+    <script>
+      function toggleMediaInputs() {
+        const type = document.getElementById("mediaType").value;
+        document.getElementById("imageInputGroup").classList.add("hidden");
+        document.getElementById("carouselInputGroup").classList.add("hidden");
+        document.getElementById("videoInputGroup").classList.add("hidden");
+
+        if (type === "image") {
+          document.getElementById("imageInputGroup").classList.remove("hidden");
+        } else if (type === "carousel") {
+          document
+            .getElementById("carouselInputGroup")
+            .classList.remove("hidden");
+        } else if (type === "video") {
+          document.getElementById("videoInputGroup").classList.remove("hidden");
+        }
+      }
+
+      function insertTag(startTag, endTag = "") {
+        const textarea = document.getElementById("content");
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = textarea.value;
+        const before = text.substring(0, start);
+        const selection = text.substring(start, end);
+        const after = text.substring(end);
+
+        textarea.value = before + startTag + selection + endTag + after;
+        textarea.focus();
+        textarea.selectionStart = start + startTag.length;
+        textarea.selectionEnd = end + startTag.length;
+      }
+
+      function fixPath(path) {
+        path = path.trim();
+        if (!path) return "";
+        if (
+          path.startsWith("http") ||
+          path.startsWith("../") ||
+          path.startsWith("/")
+        ) {
+          return path;
+        }
+        return "../images/" + path;
+      }
+
+      function generate() {
+        const title = document.getElementById("title").value;
+        const date = document.getElementById("date").value;
+        const summary = document.getElementById("summary").value;
+        const filename = document.getElementById("filename").value;
+        const content = document.getElementById("content").value;
+        const mediaType = document.getElementById("mediaType").value;
+
+        if (!title || !date || !filename) {
+          alert("Por favor completa los campos obligatorios.");
+          return;
+        }
+
+        // Determine Main Image for JSON (first image of carousel or default)
+        let mainImage = "../images/logo02.png";
+        if (mediaType === "image") {
+          mainImage = fixPath(document.getElementById("image").value);
+        } else if (mediaType === "carousel") {
+          const images = document
+            .getElementById("carouselImages")
+            .value.split(",");
+          if (images.length > 0 && images[0].trim() !== "") {
+            mainImage = fixPath(images[0]);
+          }
+        } else if (mediaType === "video") {
+          // For video, we might want a placeholder or the default logo
+          mainImage = "../images/logo02.png";
+        }
+
+        // JSON Output
+        const jsonSnippet = `  {
+    "id": ${Date.now()},
+    "title": "${title}",
+    "date": "${date}",
+    "summary": "${summary}",
+    "image": "${mainImage}",
+    "link": "${filename}.html"
+  },`;
+        document.getElementById("json-output").value = jsonSnippet;
+
+        // HTML Output Construction
+        let template = document.getElementById("blog-template").innerHTML;
+
+        // Generate Media Content
+        let mediaContent = "";
+        let carouselScript = "";
+
+        if (mediaType === "image") {
+          mediaContent = `<img src="${mainImage}" alt="${title}" class="article-img" />`;
+        } else if (mediaType === "video") {
+          const videoUrl = document.getElementById("videoUrl").value;
+          mediaContent = `
+          <div class="video-container">
+            <iframe src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>`;
+        } else if (mediaType === "carousel") {
+          const images = document
+            .getElementById("carouselImages")
+            .value.split(",");
+          let slidesHtml = "";
+          images.forEach((img) => {
+            const cleanPath = fixPath(img);
+            if (cleanPath) {
+              slidesHtml += `
+            <div class="blog-carousel-slide">
+              <a href="${cleanPath}" target="_blank">
+                <img src="${cleanPath}" alt="${title}">
+              </a>
+            </div>`;
+            }
+          });
+
+          mediaContent = `
+          <div class="blog-carousel-container">
+            <div class="blog-carousel-track">
+              ${slidesHtml}
+            </div>
+            <button class="blog-prev-btn">&#10094;</button>
+            <button class="blog-next-btn">&#10095;</button>
+          </div>`;
+
+          carouselScript = `
+      // Carousel Logic
+      document.addEventListener("DOMContentLoaded", () => {
+        const track = document.querySelector(".blog-carousel-track");
+        const nextBtn = document.querySelector(".blog-next-btn");
+        const prevBtn = document.querySelector(".blog-prev-btn");
+        const slides = document.querySelectorAll(".blog-carousel-slide");
+        let currentIndex = 0;
+
+        if(slides.length > 0) {
+            const updateCarousel = () => {
+              const width = slides[0].getBoundingClientRect().width;
+              track.style.transform = \`translateX(-\${currentIndex * width}px)\`;
+            };
+
+            nextBtn.addEventListener("click", () => {
+              currentIndex = (currentIndex + 1) % slides.length;
+              updateCarousel();
+            });
+
+            prevBtn.addEventListener("click", () => {
+              currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+              updateCarousel();
+            });
+            
+            window.addEventListener('resize', updateCarousel);
+            // Initial update to ensure correct positioning
+            updateCarousel();
+        }
+      });`;
+        }
+
+        // Replace placeholders
+        template = template
+          .replace(/{{TITLE}}/g, title)
+          .replace(/{{SUMMARY}}/g, summary)
+          .replace(/{{DATE_FORMATTED}}/g, formatDate(date))
+          .replace(/{{CONTENT}}/g, content)
+          .replace(/{{MEDIA_CONTENT}}/g, mediaContent)
+          .replace(/\/\*CAROUSEL_SCRIPT_PLACEHOLDER\*\//g, carouselScript);
+
+        document.getElementById("html-output").value = template;
+        document.getElementById("filename-display").innerText =
+          "blog/" + filename + ".html";
+      }
+
+      function formatDate(dateString) {
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        return new Date(dateString).toLocaleDateString("es-ES", options);
+      }
+
+      function copyToClipboard(elementId) {
+        const copyText = document.getElementById(elementId);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        alert("Copiado al portapapeles");
+      }
+    </script>
+  </body>
+</html>

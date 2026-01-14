@@ -116,57 +116,22 @@
     <section class="section bg-darker">
       <div class="container">
         <div class="section-header">
-          <h2>GALERÍA DE ENTRENAMIENTO</h2>
+          <h2>SÁBADO 07 DE MARZO DE 2026</h2>
+          <h2>NUEVO CURSO DE IDONEIDAD DE TIRO</h2>
           <div class="line"></div>
         </div>
 
-        <div class="carousel-container">
-          <div class="carousel-track">
-            <div class="carousel-slide">
-              <a href="/academia-tiro/images/tiro06.jpg" target="_blank">
-                <img
-                  src="/academia-tiro/images/tiro06.jpg"
-                  alt="Práctica de tiro"
-                />
-              </a>
-            </div>
-            <div class="carousel-slide">
-              <a href="/academia-tiro/images/tiro01.jpg" target="_blank">
-                <img
-                  src="/academia-tiro/images/tiro01.jpg"
-                  alt="Instructor enseñando"
-                />
-              </a>
-            </div>
-            <div class="carousel-slide">
-              <a href="/academia-tiro/images/tiro07.jpg" target="_blank">
-                <img
-                  src="/academia-tiro/images/tiro07.jpg"
-                  alt="Equipamiento táctico"
-                />
-              </a>
-            </div>
-            <div class="carousel-slide">
-              <a href="/academia-tiro/images/tiro08.jpg" target="_blank">
-                <img
-                  src="/academia-tiro/images/tiro08.jpg"
-                  alt="Polígono de tiro"
-                />
-              </a>
-            </div>
-            <div class="carousel-slide">
-              <a href="/academia-tiro/images/fondo01.jpeg" target="_blank">
-                <img
-                  src="/academia-tiro/images/fondo01.jpeg"
-                  alt="Equipamiento táctico"
-                />
-              </a>
-            </div>
-          </div>
-          <div class="carousel-nav">
-            <button class="prev-btn">&#10094;</button>
-            <button class="next-btn">&#10095;</button>
-          </div>
+        <div class="flyer-container" style="text-align: center">
+          <img
+            src="/academia-tiro/images/flyer01.jpeg"
+            alt="Flyer del Curso"
+            style="
+              max-width: 50%;
+              height: auto;
+              border-radius: 8px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            "
+          />
         </div>
       </div>
     </section>
@@ -272,7 +237,7 @@
         <p>
           Cupos limitados por curso para garantizar una enseñanza personalizada.
         </p>
-        <a href="mailto:idoneidad@tirar.com.ar" class="btn btn-primary"
+        <a href="mailto:info@tirar.com.ar" class="btn btn-primary"
           >Consultar Próxima Fecha</a
         >
       </div>
@@ -324,41 +289,6 @@
       const navLinks = document.querySelector(".nav-links");
       hamburger.addEventListener("click", () => {
         navLinks.classList.toggle("active");
-      });
-
-      // Carousel Logic
-      const track = document.querySelector(".carousel-track");
-      const nextBtn = document.querySelector(".next-btn");
-      const prevBtn = document.querySelector(".prev-btn");
-      const slideWidth = 300; // Match CSS width + gap roughly or just scroll amount
-
-      const scrollNext = () => {
-        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-          // Reset to start if at end
-          track.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          track.scrollBy({ left: slideWidth, behavior: "smooth" });
-        }
-      };
-
-      const scrollPrev = () => {
-        track.scrollBy({ left: -slideWidth, behavior: "smooth" });
-      };
-
-      nextBtn.addEventListener("click", scrollNext);
-      prevBtn.addEventListener("click", scrollPrev);
-
-      // Auto-scroll
-      let autoScroll = setInterval(scrollNext, 3000);
-
-      // Pause on hover
-      const carouselContainer = document.querySelector(".carousel-container");
-      carouselContainer.addEventListener("mouseenter", () => {
-        clearInterval(autoScroll);
-      });
-
-      carouselContainer.addEventListener("mouseleave", () => {
-        autoScroll = setInterval(scrollNext, 3000);
       });
     </script>
   </body>

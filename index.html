@@ -118,8 +118,9 @@
             <div class="course-content">
               <h3>Iniciación al Tiro</h3>
               <p>
-                Para quienes nunca han disparado. Fundamentos, seguridad y
-                manejo básico.
+                <strong>Sábado 07 de Marzo de 2026</strong>
+                es la nueva fecha del curso, que está dedicado para quienes
+                nunca han disparado. Fundamentos, seguridad y manejo básico.
               </p>
               <ul class="course-details">
                 <li>Duración: 8 Clases Teórico - Práctico</li>
@@ -175,6 +176,25 @@
       </div>
     </section>
 
+    <!-- Blog Section -->
+    <section id="blog" class="section bg-darker">
+      <div class="container">
+        <div class="section-header">
+          <h2>ÚLTIMAS NOVEDADES</h2>
+          <div class="line"></div>
+        </div>
+        <div id="home-blog-container" class="blog-grid">
+          <!-- Posts loaded via JS -->
+          <p style="text-align: center; width: 100%">Cargando novedades...</p>
+        </div>
+        <div style="text-align: center; margin-top: 40px">
+          <a href="blog/index.html" class="btn btn-outline"
+            >Ver Todas las Noticias</a
+          >
+        </div>
+      </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section">
       <div class="container">
@@ -186,7 +206,7 @@
           de un curso y una evaluación práctica en un polígono habilitado, con
           profesores certificados.
         </p>
-        <a href="mailto:idoneidad@tirar.com.ar" class="btn btn-primary"
+        <a href="mailto:info@tirar.com.ar" class="btn btn-primary"
           >Reservar Ahora</a
         >
       </div>
@@ -240,6 +260,15 @@
       hamburger.addEventListener("click", () => {
         navLinks.classList.toggle("active");
       });
+
+      // Load Blog Posts
+      document.addEventListener("DOMContentLoaded", () => {
+        // Check if function exists to avoid errors if script fails to load
+        if (typeof loadBlogPosts === "function") {
+          loadBlogPosts("home-blog-container", true, 6);
+        }
+      });
     </script>
+    <script src="blog/script.js"></script>
   </body>
 </html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog | TirAr</title>
+    <meta
+      name="description"
+      content="Novedades, artículos y noticias sobre tiro táctico y seguridad."
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <style>
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .blog-card {
+        background-color: var(--card-bg);
+        border: 1px solid #333;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: 0.3s;
+      }
+      .blog-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary-color);
+      }
+      .blog-img-container {
+        height: 200px;
+        overflow: hidden;
+      }
+      .blog-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .blog-content {
+        padding: 20px;
+      }
+      .blog-date {
+        font-size: 0.8rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        display: block;
+      }
+      .blog-content h3 {
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+      }
+      .blog-content p {
+        color: var(--text-gray);
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+      }
+      .btn-text {
+        color: var(--primary-color);
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+      .btn-text:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container nav-container">
+        <div class="logo-container">
+          <img
+            src="../images/logo02.png"
+            alt="Logo"
+            class="logo-img"
+            width="125"
+            height="75"
+          />
+          <h4 class="logo">Academia de Tiro Táctico</h4>
+        </div>
+        <ul class="nav-links">
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="../academia.html">Academia</a></li>
+          <li><a href="index.html" class="active">Blog</a></li>
+          <li><a href="../index.html#cursos">Cursos</a></li>
+          <li><a href="#contacto" class="btn-nav">Contacto</a></li>
+        </ul>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" style="height: 50vh; min-height: 400px">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <h1 class="hero-title">BLOG Y NOVEDADES</h1>
+        <p>
+          Mantente informado sobre el mundo del tiro táctico, consejos de
+          seguridad y eventos de la academia.
+        </p>
+      </div>
+    </header>
+
+    <!-- Blog List Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>ÚLTIMAS PUBLICACIONES</h2>
+          <div class="line"></div>
+        </div>
+        <div id="blog-container" class="blog-grid">
+          <!-- Posts loaded via JS -->
+          <p style="text-align: center; width: 100%">Cargando artículos...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto">
+      <div class="container footer-content">
+        <div class="footer-col">
+          <h3>Tir<span class="highlight">Ar</span></h3>
+          <p>Academia líder en formación de tiro táctico y defensivo.</p>
+          <p>Buenos Aires, Argentina</p>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <p>
+            <b>Email:</b>
+            <a href="mailto:info@tirar.com.ar">info@tirar.com.ar</a>
+          </p>
+          <p><b>WhatsApp:</b> +54 9 11-5004-0881</p>
+          <p><b>Instructor:</b> Guillermo Benítez</p>
+        </div>
+        <div class="footer-col">
+          <h4>Síguenos</h4>
+          <div class="social-links">
+            <a href="https://www.instagram.com/academiatirar" target="_blank"
+              >Instagram</a
+            >
+            <a href="https://www.facebook.com/academiatirar" target="_blank"
+              >Facebook</a
+            >
+            <a href="#">YouTube</a>
+          </div>
+        </div>
+        <div class="footer-col visit-counter">
+          <h4>Cantidad de visitas:</h4>
+          <span id="visit-count">0</span>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 TirAr Academy. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="../counter.js"></script>
+    <script src="script.js"></script>
+    <script>
+      // Mobile Menu
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.querySelector(".nav-links");
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+
+      // Load Posts
+      document.addEventListener("DOMContentLoaded", () => {
+        loadBlogPosts("blog-container", false, 15);
+      });
+    </script>
+  </body>
+</html>
